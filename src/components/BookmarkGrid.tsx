@@ -20,7 +20,7 @@ export const BookmarkGrid = () => {
     return (
       <>
         <div
-          className="flex-1 flex flex-col items-center justify-center gap-4 p-8"
+          className="flex flex-col items-center justify-center gap-4 p-8 min-h-[400px]"
           onContextMenu={handleContextMenu}
         >
           <div className="glass-strong rounded-2xl p-8 max-w-md text-center animate-scale-in">
@@ -71,7 +71,7 @@ export const BookmarkGrid = () => {
   return (
     <>
       <div
-        className="flex-1 p-6 overflow-auto"
+        className="p-6"
         onContextMenu={handleContextMenu}
       >
         <div className="grid grid-cols-6 gap-4 auto-rows-[160px]">

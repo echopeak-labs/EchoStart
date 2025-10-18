@@ -75,7 +75,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center gap-3 w-full max-w-2xl">
+    <form onSubmit={handleSearch} className="flex items-center gap-3 w-full max-w-2xl relative z-50">
       {/* ChatGPT Button */}
       <Button
         type="button"
@@ -88,7 +88,7 @@ export const SearchBar = () => {
       </Button>
 
       {/* Search Bar Container */}
-      <div className="flex-1 flex glass rounded-xl shadow-glass relative">
+      <div className="flex-1 flex glass rounded-xl shadow-glass">
         {/* Engine Selector Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button

@@ -94,7 +94,7 @@ export const SearchBar = () => {
           <button
             type="button"
             onClick={toggleDropdown}
-            className="h-11 px-4 flex items-center gap-2 glass-hover transition-smooth text-sm font-medium border-r border-glass-border hover:bg-white/5"
+            className="h-11 px-4 flex items-center gap-2 glass-hover transition-smooth text-sm font-medium border-r border-glass-border hover:bg-white/8"
             aria-label="Select search engine"
             aria-expanded={isDropdownOpen}
           >
@@ -104,7 +104,10 @@ export const SearchBar = () => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute top-full left-0 mt-2 glass-strong rounded-lg overflow-hidden shadow-glass z-[9999] animate-scale-in min-w-[140px]">
+            <div
+              style="background: #393939"
+              className="absolute top-full left-0 mt-2 glass-strong rounded-lg overflow-hidden shadow-glass z-[9999] animate-scale-in min-w-[140px]"
+            >
               {searchEngines.map((engine) => (
                 <button
                   key={engine.name}

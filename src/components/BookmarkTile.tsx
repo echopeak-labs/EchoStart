@@ -59,7 +59,7 @@ export const BookmarkTile = ({ tile, bookmark }: BookmarkTileProps) => {
                 e.stopPropagation();
                 toggleFavorite(bookmark.id);
               }}
-              className="opacity-0 group-hover:opacity-100 transition-smooth"
+              className={bookmark.isFavorite ? 'transition-smooth' : 'opacity-0 group-hover:opacity-100 transition-smooth'}
             >
               <Star
                 className={`h-4 w-4 ${
@@ -94,28 +94,18 @@ export const BookmarkTile = ({ tile, bookmark }: BookmarkTileProps) => {
         <h3 className="font-semibold text-sm mb-1 line-clamp-2">{bookmark.title}</h3>
         <p className="text-xs text-muted-foreground line-clamp-1">{bookmark.url}</p>
 
-        <div className="mt-auto pt-2 flex items-center justify-between gap-2">
-          {bookmark.tags && bookmark.tags.length > 0 ? (
-            <div className="flex flex-wrap gap-1">
-              {bookmark.tags.slice(0, 3).map((tag, i) => (
-                <span
-                  key={i}
-                  className="text-xs px-2 py-0.5 rounded-full glass"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ) : (
-            <div />
-          )}
-          
-          {bookmark.clickCount > 0 && (
-            <span className="text-xs text-muted-foreground whitespace-nowrap">
-              {bookmark.clickCount} {bookmark.clickCount === 1 ? 'click' : 'clicks'}
-            </span>
-          )}
-        </div>
+        {bookmark.tags && bookmark.tags.length > 0 && (
+          <div className="mt-auto pt-2 flex flex-wrap gap-1">
+            {bookmark.tags.slice(0, 3).map((tag, i) => (
+              <span
+                key={i}
+                className="text-xs px-2 py-0.5 rounded-full glass"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <ConfirmDialog

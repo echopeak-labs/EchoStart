@@ -105,7 +105,7 @@ export const SearchBar = () => {
           {/* Dropdown Menu */}
           {isDropdownOpen && (
             <div
-              style="background: #393939"
+              style={{ background: "#393939" }}
               className="absolute top-full left-0 mt-2 glass-strong rounded-lg overflow-hidden shadow-glass z-[9999] animate-scale-in min-w-[140px]"
             >
               {searchEngines.map((engine) => (

@@ -34,8 +34,21 @@ export const BookmarkTile = ({ tile, bookmark }: BookmarkTileProps) => {
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             {bookmark.icon ? (
-              <span className="text-2xl">{bookmark.icon}</span>
-            ) : (
+              bookmark.icon.startsWith('http') ? (
+                <img 
+                  src={bookmark.icon} 
+                  alt={`${bookmark.title} icon`}
+                  className="w-8 h-8 rounded-lg object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              ) : (
+                <span className="text-2xl">{bookmark.icon}</span>
+              )
+            ) : null}
+            {!bookmark.icon && (
               <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
                 <ExternalLink className="h-4 w-4 text-primary" />
               </div>

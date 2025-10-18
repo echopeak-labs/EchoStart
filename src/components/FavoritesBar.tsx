@@ -30,7 +30,18 @@ export const FavoritesBar = () => {
             className="flex items-center gap-2"
           >
             {bookmark.icon ? (
-              <span className="text-lg">{bookmark.icon}</span>
+              bookmark.icon.startsWith('http') ? (
+                <img 
+                  src={bookmark.icon} 
+                  alt={`${bookmark.title} icon`}
+                  className="w-5 h-5 rounded object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <span className="text-lg">{bookmark.icon}</span>
+              )
             ) : (
               <ExternalLink className="h-4 w-4" />
             )}

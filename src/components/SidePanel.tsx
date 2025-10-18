@@ -1,4 +1,4 @@
-import { Home, Bookmark, Trash2, Settings } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookmarkStore } from '@/store/bookmarkStore';
 import { useState } from 'react';
@@ -20,22 +20,6 @@ export const SidePanel = () => {
   return (
     <>
       <aside className="w-16 glass border-r border-glass-border flex flex-col items-center py-4 gap-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="glass-hover transition-smooth hover:glow-subtle"
-        >
-          <Home className="h-5 w-5" />
-        </Button>
-        
-        <Button
-          variant="ghost"
-          size="icon"
-          className="glass-hover transition-smooth hover:glow-subtle"
-        >
-          <Bookmark className="h-5 w-5" />
-        </Button>
-        
         <div className="flex-1" />
         
         <Button
@@ -45,14 +29,6 @@ export const SidePanel = () => {
           className="glass-hover transition-smooth hover:text-destructive hover:glow-subtle"
         >
           <Trash2 className="h-5 w-5" />
-        </Button>
-        
-        <Button
-          variant="ghost"
-          size="icon"
-          className="glass-hover transition-smooth hover:glow-subtle"
-        >
-          <Settings className="h-5 w-5" />
         </Button>
       </aside>
 

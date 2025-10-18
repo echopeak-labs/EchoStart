@@ -104,7 +104,7 @@ export const SearchBar = () => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute top-full left-0 mt-2 glass-strong rounded-lg overflow-hidden  z-[9999] animate-scale-in min-w-[140px]">
+            <div className="absolute top-full left-0 mt-2 glass-strong rounded-lg overflow-hidden shadow-glass z-[9999] animate-scale-in min-w-[140px]">
               {searchEngines.map((engine) => (
                 <button
                   key={engine.name}

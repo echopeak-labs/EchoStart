@@ -72,9 +72,9 @@ All colors MUST be HSL.
   }
 
   .glass-strong {
-    background: hsl(var(--glass) / 0.35);
-    backdrop-filter: blur(48px);
-    -webkit-backdrop-filter: blur(48px);
+    background: hsl(var(--glass) / 0.15);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
     border: 1px solid hsl(var(--glass-border) / 0.2);
   }
 

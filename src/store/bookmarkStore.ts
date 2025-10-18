@@ -9,6 +9,7 @@ export interface Bookmark {
   isFavorite: boolean;
   createdAt: number;
   tags?: string[];
+  clickCount: number;
 }
 
 export interface BookmarkTile {
@@ -42,11 +43,12 @@ interface BookmarkStore {
   setActiveWorkspace: (id: string) => void;
   
   // Bookmark actions
-  addBookmark: (bookmark: Omit<Bookmark, 'id' | 'createdAt'>) => void;
+  addBookmark: (bookmark: Omit<Bookmark, 'id' | 'createdAt' | 'clickCount'>) => void;
   updateBookmark: (id: string, updates: Partial<Bookmark>) => void;
   deleteBookmark: (id: string) => void;
   deleteAllBookmarks: () => void;
   toggleFavorite: (id: string) => void;
+  incrementClickCount: (id: string) => void;
   
   // Grid actions
   addTileToGrid: (bookmarkId: string, x: number, y: number, w: number, h: number) => void;
@@ -117,6 +119,7 @@ export const useBookmarkStore = create<BookmarkStore>()(
           ...bookmark,
           id,
           createdAt: Date.now(),
+          clickCount: 0,
         };
         
         set((state) => {
@@ -206,7 +209,22 @@ export const useBookmarkStore = create<BookmarkStore>()(
         const state = get();
         const bookmark = state.getBookmarkById(id);
         if (bookmark) {
-          state.updateBookmark(id, { isFavorite: !bookmark.isFavorite });
+          // If unfavoriting, reset click count
+          const updates: Partial<Bookmark> = { 
+            isFavorite: !bookmark.isFavorite 
+          };
+          if (bookmark.isFavorite) {
+            updates.clickCount = 0;
+          }
+          state.updateBookmark(id, updates);
+        }
+      },
+
+      incrementClickCount: (id) => {
+        const state = get();
+        const bookmark = state.getBookmarkById(id);
+        if (bookmark) {
+          state.updateBookmark(id, { clickCount: bookmark.clickCount + 1 });
         }
       },
 

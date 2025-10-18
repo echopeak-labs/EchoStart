@@ -10,13 +10,14 @@ interface BookmarkTileProps {
 }
 
 export const BookmarkTile = ({ tile, bookmark }: BookmarkTileProps) => {
-  const { toggleFavorite, deleteBookmark } = useBookmarkStore();
+  const { toggleFavorite, deleteBookmark, incrementClickCount } = useBookmarkStore();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const colSpan = tile.w === 2 ? 'col-span-2' : 'col-span-1';
   const rowSpan = tile.h === 2 ? 'row-span-2' : 'row-span-1';
 
   const handleClick = () => {
+    incrementClickCount(bookmark.id);
     window.open(bookmark.url, '_blank');
   };
 
@@ -93,18 +94,28 @@ export const BookmarkTile = ({ tile, bookmark }: BookmarkTileProps) => {
         <h3 className="font-semibold text-sm mb-1 line-clamp-2">{bookmark.title}</h3>
         <p className="text-xs text-muted-foreground line-clamp-1">{bookmark.url}</p>
 
-        {bookmark.tags && bookmark.tags.length > 0 && (
-          <div className="mt-auto pt-2 flex flex-wrap gap-1">
-            {bookmark.tags.slice(0, 3).map((tag, i) => (
-              <span
-                key={i}
-                className="text-xs px-2 py-0.5 rounded-full glass"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="mt-auto pt-2 flex items-center justify-between gap-2">
+          {bookmark.tags && bookmark.tags.length > 0 ? (
+            <div className="flex flex-wrap gap-1">
+              {bookmark.tags.slice(0, 3).map((tag, i) => (
+                <span
+                  key={i}
+                  className="text-xs px-2 py-0.5 rounded-full glass"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div />
+          )}
+          
+          {bookmark.clickCount > 0 && (
+            <span className="text-xs text-muted-foreground whitespace-nowrap">
+              {bookmark.clickCount} {bookmark.clickCount === 1 ? 'click' : 'clicks'}
+            </span>
+          )}
+        </div>
       </div>
 
       <ConfirmDialog

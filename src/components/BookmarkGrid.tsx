@@ -48,7 +48,7 @@ export const BookmarkGrid = () => {
     );
   }
 
-  // Sort tiles by favorite status - favorited bookmarks first
+  // Sort tiles by favorite status first, then by click count (highest first)
   const sortedGrid = [...grid].sort((a, b) => {
     const bookmarkA = bookmarks.find((bm) => bm.id === a.bookmarkId);
     const bookmarkB = bookmarks.find((bm) => bm.id === b.bookmarkId);
@@ -59,7 +59,12 @@ export const BookmarkGrid = () => {
     if (bookmarkA.isFavorite && !bookmarkB.isFavorite) return -1;
     if (!bookmarkA.isFavorite && bookmarkB.isFavorite) return 1;
     
-    // If both have same favorite status, maintain original order
+    // If both have same favorite status, sort by click count (highest first)
+    if (bookmarkA.clickCount !== bookmarkB.clickCount) {
+      return bookmarkB.clickCount - bookmarkA.clickCount;
+    }
+    
+    // If both have same click count, maintain original order
     return 0;
   });
 

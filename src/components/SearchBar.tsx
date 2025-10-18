@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from 'react';
-import { Search, ChevronDown, MessageSquare } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { z } from 'zod';
+import { useState, useRef, useEffect } from "react";
+import { Search, ChevronDown, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { z } from "zod";
 
 const searchEngines = [
-  { name: 'Google', url: 'https://www.google.com/search?q=' },
-  { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=' },
-  { name: 'Bing', url: 'https://www.bing.com/search?q=' },
-  { name: 'Brave', url: 'https://search.brave.com/search?q=' },
+  { name: "Google", url: "https://www.google.com/search?q=" },
+  { name: "DuckDuckGo", url: "https://duckduckgo.com/?q=" },
+  { name: "Bing", url: "https://www.bing.com/search?q=" },
+  { name: "Brave", url: "https://search.brave.com/search?q=" },
 ];
 
 const searchQuerySchema = z.string().trim().min(1).max(500);
 
 export const SearchBar = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [selectedEngine, setSelectedEngine] = useState(searchEngines[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,8 +28,8 @@ export const SearchBar = () => {
     };
 
     if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [isDropdownOpen]);
 
@@ -37,37 +37,37 @@ export const SearchBar = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ctrl/Cmd + K to focus search
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
         e.preventDefault();
         inputRef.current?.focus();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const validatedQuery = searchQuerySchema.parse(query);
       const encodedQuery = encodeURIComponent(validatedQuery);
-      window.open(selectedEngine.url + encodedQuery, '_blank', 'noopener,noreferrer');
-      setQuery('');
+      window.open(selectedEngine.url + encodedQuery, "_blank", "noopener,noreferrer");
+      setQuery("");
     } catch (error) {
-      console.error('Invalid search query');
+      console.error("Invalid search query");
     }
   };
 
-  const handleEngineSelect = (engine: typeof searchEngines[0]) => {
+  const handleEngineSelect = (engine: (typeof searchEngines)[0]) => {
     setSelectedEngine(engine);
     setIsDropdownOpen(false);
     inputRef.current?.focus();
   };
 
   const handleChatGPT = () => {
-    window.open('https://chatgpt.com', '_blank', 'noopener,noreferrer');
+    window.open("https://chatgpt.com", "_blank", "noopener,noreferrer");
   };
 
   const toggleDropdown = () => {
@@ -94,12 +94,12 @@ export const SearchBar = () => {
           <button
             type="button"
             onClick={toggleDropdown}
-            className="h-11 px-4 flex items-center gap-2 glass-hover transition-smooth text-sm font-medium border-r border-glass-border hover:bg-white/5"
+            className="h-11 px-4 flex items-center gap-2 glass-hover transition-smooth text-sm font-medium border-r border-glass-border hover:bg-white/8"
             aria-label="Select search engine"
             aria-expanded={isDropdownOpen}
           >
             <span className="min-w-[90px] text-left">{selectedEngine.name}</span>
-            <ChevronDown className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-4 w-4 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
           </button>
 
           {/* Dropdown Menu */}
@@ -111,9 +111,7 @@ export const SearchBar = () => {
                   type="button"
                   onClick={() => handleEngineSelect(engine)}
                   className={`w-full px-4 py-3 text-left text-sm transition-smooth whitespace-nowrap ${
-                    selectedEngine.name === engine.name
-                      ? 'bg-primary/20 text-primary font-medium'
-                      : 'hover:bg-white/10'
+                    selectedEngine.name === engine.name ? "bg-primary/20 text-primary font-medium" : "hover:bg-white/10"
                   }`}
                 >
                   {engine.name}

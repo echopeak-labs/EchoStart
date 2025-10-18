@@ -117,9 +117,29 @@ All colors MUST be HSL.
 
   body {
     @apply text-foreground;
-    background: linear-gradient(135deg, hsl(var(--background-gradient-start)), hsl(var(--background-gradient-end)));
+    background: 
+      radial-gradient(circle at 20% 30%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(var(--primary) / 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, hsl(var(--accent) / 0.05) 0%, transparent 40%),
+      linear-gradient(135deg, hsl(var(--background-gradient-start)), hsl(var(--background-gradient-end)));
     background-attachment: fixed;
     min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(45deg, hsl(var(--primary) / 0.03) 1px, transparent 1px),
+      linear-gradient(-45deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* Scrollbar styling */

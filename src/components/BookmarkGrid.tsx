@@ -48,6 +48,21 @@ export const BookmarkGrid = () => {
     );
   }
 
+  // Sort tiles by favorite status - favorited bookmarks first
+  const sortedGrid = [...grid].sort((a, b) => {
+    const bookmarkA = bookmarks.find((bm) => bm.id === a.bookmarkId);
+    const bookmarkB = bookmarks.find((bm) => bm.id === b.bookmarkId);
+    
+    if (!bookmarkA || !bookmarkB) return 0;
+    
+    // Favorited bookmarks come first
+    if (bookmarkA.isFavorite && !bookmarkB.isFavorite) return -1;
+    if (!bookmarkA.isFavorite && bookmarkB.isFavorite) return 1;
+    
+    // If both have same favorite status, maintain original order
+    return 0;
+  });
+
   return (
     <>
       <div
@@ -55,7 +70,7 @@ export const BookmarkGrid = () => {
         onContextMenu={handleContextMenu}
       >
         <div className="grid grid-cols-6 gap-4 auto-rows-[160px]">
-          {grid.map((tile) => {
+          {sortedGrid.map((tile) => {
             const bookmark = bookmarks.find((b) => b.id === tile.bookmarkId);
             if (!bookmark) return null;
 
